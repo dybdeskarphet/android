@@ -2,18 +2,18 @@
 set -eu
 
 if [ $# -eq 0 ] || [ -z "$1" ]; then
-    echo "Usage: wallpaper <path-to-image>" >&2
-    exit 1
+  echo "Usage: wallpaper <path-to-image>" >&2
+  exit 1
 fi
 
 target="$1"
 if [ ! -f "$target" ] && [ -f "${HOME}/img/Wallpapers/$target" ]; then
-    target="${HOME}/img/Wallpapers/$target"
+  target="${HOME}/img/Wallpapers/$target"
 fi
 
 if [ ! -f "$target" ]; then
-    echo "Error: file '$target' does not exist." >&2
-    exit 1
+  echo "Error: file '$target' does not exist." >&2
+  exit 1
 fi
 
 image="$(realpath "$target")"
@@ -24,16 +24,16 @@ blur_img="$wp_dir/.wallpaper_blur.png"
 
 # Blur and dim image using ffmpeg filter matching backdrop
 ffmpeg -y -i "$image" \
-    -vf "scale=iw/4:-1,gblur=sigma=20:steps=2,eq=brightness=-0.05,scale=4*iw:-1" \
-    -update 1 -frames:v 1 "$blur_img" -loglevel error
+  -vf "scale=iw/4:-1,gblur=sigma=20:steps=2,eq=brightness=-0.05,scale=4*iw:-1" \
+  -update 1 -frames:v 1 "$blur_img" -loglevel error
 
 # Set wallpaper on Android via Termux API:
 # - Original image for Home Screen
 # - Blurred & dimmed image for Lock Screen (-l)
 if command -v termux-wallpaper >/dev/null 2>&1; then
-    termux-wallpaper -f "$image"
-    termux-wallpaper -l -f "$blur_img"
+  termux-wallpaper -f "$image"
+  termux-wallpaper -l -f "$blur_img"
 else
-    echo "termux-wallpaper not found. Ensure termux-api is installed." >&2
-    exit 1
+  echo "termux-wallpaper not found. Ensure termux-api is installed." >&2
+  exit 1
 fi
