@@ -39,7 +39,7 @@ fi
 if [ -n "$SHARED_DIR" ]; then
     # Ensure target directories exist on shared storage
     mkdir -p "$SHARED_DIR/Documents"
-    mkdir -p "$SHARED_DIR/Pictures"
+    mkdir -p "$SHARED_DIR/Pictures/Wallpapers"
     mkdir -p "$SHARED_DIR/Backups"
     mkdir -p "$SHARED_DIR/DCIM/Camera"
 

@@ -6,21 +6,23 @@ if [ $# -eq 0 ] || [ -z "$1" ]; then
     exit 1
 fi
 
-if [ ! -f "$1" ]; then
-    echo "Error: file '$1' does not exist." >&2
+target="$1"
+if [ ! -f "$target" ] && [ -f "${HOME}/img/Wallpapers/$target" ]; then
+    target="${HOME}/img/Wallpapers/$target"
+fi
+
+if [ ! -f "$target" ]; then
+    echo "Error: file '$target' does not exist." >&2
     exit 1
 fi
 
-log_file="${HOME}/.cache/wallpaper.log"
-mkdir -p "${HOME}/.cache"
-echo "[$(date '+%Y-%m-%d %H:%M:%S')] wallpaper invoked with: $*" >> "$log_file" 2>/dev/null || true
+image="$(realpath "$target")"
 
-image="$(realpath "$1")"
+wp_dir="${HOME}/img/Wallpapers"
+mkdir -p "$wp_dir"
+blur_img="$wp_dir/.wallpaper_blur.png"
 
-cache_dir="${HOME}/.cache"
-blur_img="$cache_dir/wallpaper_blur.png"
-
-# Blur and dim image using ffmpeg filter matching code/nix backdrop
+# Blur and dim image using ffmpeg filter matching backdrop
 ffmpeg -y -i "$image" \
     -vf "scale=iw/4:-1,gblur=sigma=20:steps=2,eq=brightness=-0.05,scale=4*iw:-1" \
     -update 1 -frames:v 1 "$blur_img" -loglevel error
@@ -31,8 +33,7 @@ ffmpeg -y -i "$image" \
 if command -v termux-wallpaper >/dev/null 2>&1; then
     termux-wallpaper -f "$image"
     termux-wallpaper -l -f "$blur_img"
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Wallpaper applied successfully." >> "$log_file" 2>/dev/null || true
 else
     echo "termux-wallpaper not found. Ensure termux-api is installed." >&2
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Error: termux-wallpaper not found." >> "$log_file" 2>/dev/null || true
+    exit 1
 fi
