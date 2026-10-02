@@ -25,6 +25,12 @@ abbr -a v nvim
 abbr -a y yazi
 abbr -a t 'nvim ~/doc/todo.txt'
 
+# Git abbreviations
+abbr -a gita 'git add .'
+abbr -a gitc 'git commit -S'
+abbr -a gitd 'git diff HEAD'
+abbr -a gitp 'git push'
+
 # Fastfetch on interactive session startup
 if status is-interactive
     and type -q fastfetch
