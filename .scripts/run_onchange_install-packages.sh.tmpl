@@ -1,0 +1,16 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+# .chezmoidata.toml hash: {{ include ".chezmoidata.toml" | sha256sum }}
+
+PACKAGES=(
+{{- range .packages }}
+    {{ . | quote }}
+{{- end }}
+)
+
+echo "Updating package repositories..."
+pkg update -y
+
+echo "Installing packages..."
+pkg install -y "${PACKAGES[@]}"

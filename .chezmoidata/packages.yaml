@@ -1,0 +1,12 @@
+packages:
+  - curl
+  - git
+  - openssh
+  - zsh
+  - neovim
+  - matugen
+  - ripgrep
+  - fzf
+  - bat
+  - eza
+  - termux-api
