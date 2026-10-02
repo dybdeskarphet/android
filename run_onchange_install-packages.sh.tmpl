@@ -1,0 +1,19 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+if ! command -v pkg >/dev/null 2>&1; then
+    echo "==> 'pkg' not found, skipping package installation..."
+    exit 0
+fi
+
+PACKAGES=(
+{{- range .packages }}
+    {{ . | quote }}
+{{- end }}
+)
+
+echo "==> Updating package repositories..."
+pkg update -y
+
+echo "==> Installing Termux packages..."
+pkg install -y "${PACKAGES[@]}"

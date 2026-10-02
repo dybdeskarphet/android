@@ -6,3 +6,13 @@ input_path = '~/.config/matugen/templates/colors.properties'
 output_path = '~/.termux/colors.properties'
 post_hook = 'termux-reload-settings'
 
+[templates.yazilua]
+pre_hook = 'mkdir -p ~/.config/yazi/plugins/matugen.yazi'
+input_path = '~/.config/matugen/templates/colors.lua'
+output_path = '~/.config/yazi/plugins/matugen.yazi/main.lua'
+
+[templates.yazi]
+pre_hook = 'mkdir -p ~/.config/yazi/flavors/matugen.yazi'
+input_path = '~/.config/matugen/templates/yazi.toml'
+output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
+

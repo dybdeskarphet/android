@@ -1,0 +1,42 @@
+[mgr]
+ratio = [1, 4, 3]
+sort_by = "alphabetical"
+sort_reverse = false
+sort_translit = true
+linemode = "size"
+
+[preview]
+max_width = 1920
+max_height = 1080
+
+[tasks]
+preload_workers = 5
+image_alloc = 536870912
+image_bound = [0, 0]
+
+[opener]
+edit = [
+	{ run = '${EDITOR:-nvim} "$@"', desc = "Edit", block = true },
+]
+open = [
+	{ run = 'termux-open "$@"', desc = "Open with Android", orphan = true },
+]
+play = [
+	{ run = 'termux-open "$@"', desc = "Play with Android", orphan = true },
+]
+install_apk = [
+	{ run = 'termux-open "$@"', desc = "Install APK", orphan = true },
+]
+
+[open]
+prepend_rules = [
+	{ mime = "{trash/**,folder/trash}", use = [ "open", "trash" ] },
+	{ mime = "application/android.package-archive", use = "install_apk" },
+	{ mime = "image/*", use = "open" },
+	{ mime = "video/*", use = "play" },
+	{ mime = "audio/*", use = "play" },
+	{ mime = "application/pdf", use = "open" },
+	{ mime = "application/{epub,epub+zip}", use = "open" },
+	{ mime = "application/{vnd.openxmlformats-officedocument.*,openxmlformats-officedocument.*,vnd.oasis.opendocument.*,oasis.opendocument.*,msword,vnd.ms-*}", use = "open" },
+	{ url = "*.{docx,doc,odt,xlsx,xls,ods,pptx,ppt,odp,rtf}", use = "open" },
+]

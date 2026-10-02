@@ -10,3 +10,16 @@ packages:
   - bat
   - eza
   - termux-api
+  - yazi
+  - zip
+
+yazi_plugins:
+  - yazi-rs/plugins:smart-enter
+  - yazi-rs/plugins:git
+  - dybdeskarphet/yazi-plugins:toggle-ratio
+  - yazi-rs/plugins:toggle-pane
+  - yazi-rs/plugins:recycle-bin
+  - yazi-rs/plugins:vcs-files
+  - DreamMaoMao/fg.yazi
+
+

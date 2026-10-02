@@ -1,0 +1,19 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+if ! command -v ya >/dev/null 2>&1; then
+    echo "==> 'ya' (yazi CLI) not found, skipping Yazi plugin installation..."
+    exit 0
+fi
+
+PLUGINS=(
+{{- range .yazi_plugins }}
+    {{ . | quote }}
+{{- end }}
+)
+
+echo "==> Installing / updating Yazi plugins with ya pkg..."
+for plugin in "${PLUGINS[@]}"; do
+    echo "==> Adding Yazi plugin: $plugin"
+    ya pkg add "$plugin" || true
+done

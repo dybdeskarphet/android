@@ -1,0 +1,51 @@
+-- matugen colors {{{
+local colors_ok, matugen = pcall(require, "matugen")
+local colors = colors_ok and matugen.palette or {
+	primary = "blue",
+	secondary = "cyan",
+	tertiary = "green",
+}
+-- }}}
+
+-- Folder-specific rules {{{
+ps.sub("ind-sort", function(opt)
+	local cwd = cx.active.current.cwd
+	if cwd:ends_with("dl") or cwd:ends_with("Download") or cwd:ends_with("downloads") then
+		opt.by, opt.reverse, opt.dir_first = "mtime", true, false
+	elseif cwd:ends_with("cam") or cwd:ends_with("DCIM") or cwd:ends_with("Camera") then
+		opt.by, opt.reverse, opt.dir_first = "mtime", true, false
+	else
+		opt.by, opt.reverse, opt.dir_first = "natural", false, true
+	end
+	return opt
+end)
+-- }}}
+
+-- Add file owner and group to Status bar {{{
+Status:children_add(function()
+	local h = cx.active.current.hovered
+	if h == nil or ya.target_family() ~= "unix" then
+		return ""
+	end
+
+	return ui.Line({
+		ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg(colors.primary),
+		":",
+		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg(colors.primary),
+		" ",
+	})
+end, 500, Status.RIGHT)
+-- }}}
+
+-- Symlink {{{
+Status:children_add(function(self)
+	local h = self._current.hovered
+	if h and h.link_to then
+		return "  " .. tostring(h.link_to)
+	else
+		return ""
+	end
+end, 3300, Status.LEFT)
+-- }}}
+
+-- vim: fdm=marker fdl=0
