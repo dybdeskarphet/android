@@ -1,0 +1,33 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+if [ $# -eq 0 ] || [ -z "$1" ]; then
+    echo "Usage: wallpaper <path-to-image>" >&2
+    exit 1
+fi
+
+if [ ! -f "$1" ]; then
+    echo "Error: file '$1' does not exist." >&2
+    exit 1
+fi
+
+image="$(realpath "$1")"
+
+cache_dir="${HOME}/.cache"
+mkdir -p "$cache_dir"
+blur_img="$cache_dir/wallpaper_blur.png"
+
+# Blur and dim image using ffmpeg filter matching code/nix backdrop
+ffmpeg -y -i "$image" \
+    -vf "scale=iw/4:-1,gblur=sigma=20:steps=2,eq=brightness=-0.05,scale=4*iw:-1" \
+    -update 1 -frames:v 1 "$blur_img" -loglevel error
+
+# Set wallpaper on Android via Termux API:
+# - Original image for Home Screen
+# - Blurred & dimmed image for Lock Screen (-l)
+if command -v termux-wallpaper >/dev/null 2>&1; then
+    termux-wallpaper -f "$image"
+    termux-wallpaper -l -f "$blur_img"
+else
+    echo "termux-wallpaper not found. Ensure termux-api is installed." >&2
+fi
