@@ -1,5 +1,5 @@
 [config.wallpaper]
-command = "wallpaper {{image}}"
+command = "$HOME/.local/bin/wallpaper {{image}}"
 
 [templates.termux]
 input_path = '~/.config/matugen/templates/colors.properties'
