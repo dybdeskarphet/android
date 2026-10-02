@@ -33,7 +33,7 @@ abbr -a gitd 'git diff HEAD'
 abbr -a gitp 'git push'
 
 # Chezmoi
-abbr -a ced 'nvim ~/.local/share/chezmoi/'
+abbr -a ced 'cd ~/.local/share/chezmoi/ && nvim'
 abbr -a cbu 'chezmoi apply -v'
 abbr -a cup 'chezmoi update -v'
 
