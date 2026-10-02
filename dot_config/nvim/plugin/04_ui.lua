@@ -82,7 +82,7 @@ require("mini.statusline").setup({
 
 -- gruvbox-minimal.nvim {{{
 require("gruvbox-minimal").setup({
-	transparent = true,
+	transparent = false,
 	theme = "dark",
 	markdown_docstring = {
 		python = true,
