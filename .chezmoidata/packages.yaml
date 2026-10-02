@@ -12,6 +12,7 @@ packages:
   - termux-api
   - yazi
   - zip
+  - fastfetch
   - proot-distro
   # Compiler & Runtimes
   - clang

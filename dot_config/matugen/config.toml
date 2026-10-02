@@ -16,3 +16,8 @@ pre_hook = 'mkdir -p ~/.config/yazi/flavors/matugen.yazi'
 input_path = '~/.config/matugen/templates/yazi.toml'
 output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
 
+[templates.fastfetch]
+input_path = '~/.config/matugen/templates/fastfetch.jsonc'
+output_path = '~/.config/fastfetch/config.jsonc'
+
+
