@@ -11,10 +11,13 @@ if [ ! -f "$1" ]; then
     exit 1
 fi
 
+log_file="${HOME}/.cache/wallpaper.log"
+mkdir -p "${HOME}/.cache"
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] wallpaper invoked with: $*" >> "$log_file" 2>/dev/null || true
+
 image="$(realpath "$1")"
 
 cache_dir="${HOME}/.cache"
-mkdir -p "$cache_dir"
 blur_img="$cache_dir/wallpaper_blur.png"
 
 # Blur and dim image using ffmpeg filter matching code/nix backdrop
@@ -28,6 +31,8 @@ ffmpeg -y -i "$image" \
 if command -v termux-wallpaper >/dev/null 2>&1; then
     termux-wallpaper -f "$image"
     termux-wallpaper -l -f "$blur_img"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Wallpaper applied successfully." >> "$log_file" 2>/dev/null || true
 else
     echo "termux-wallpaper not found. Ensure termux-api is installed." >&2
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Error: termux-wallpaper not found." >> "$log_file" 2>/dev/null || true
 fi
