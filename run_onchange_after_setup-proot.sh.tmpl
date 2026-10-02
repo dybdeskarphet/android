@@ -14,28 +14,16 @@ if ! proot-distro list | grep -q "$DISTRO (installed)"; then
     proot-distro install "$DISTRO"
 fi
 
-APT_PACKAGES=(
-{{- range .proot.apt_packages }}
-    {{ . | quote }}
-{{- end }}
-)
-
-PYTHON_PACKAGES=(
-{{- range .proot.python_packages }}
-    {{ . | quote }}
-{{- end }}
-)
-
 echo "==> Installing minimal APT packages in '$DISTRO'..."
 proot-distro login "$DISTRO" -- /bin/sh -c "
     export DEBIAN_FRONTEND=noninteractive
     apt update -y
-    apt install -y --no-install-recommends ${APT_PACKAGES[*]}
+    apt install -y --no-install-recommends {{ .proot.apt_packages | join " " }}
     apt clean
     rm -rf /var/lib/apt/lists/*
 "
 
 echo "==> Installing Python data science stack in '$DISTRO'..."
 proot-distro login "$DISTRO" -- /bin/sh -c "
-    pip install --break-system-packages --upgrade ${PYTHON_PACKAGES[*]}
+    pip install --break-system-packages --upgrade {{ .proot.python_packages | join " " }}
 "

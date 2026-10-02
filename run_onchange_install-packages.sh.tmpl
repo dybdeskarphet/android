@@ -6,17 +6,11 @@ if ! command -v pkg >/dev/null 2>&1; then
     exit 0
 fi
 
-PACKAGES=(
-{{- range .packages }}
-    {{ . | quote }}
-{{- end }}
-)
-
 echo "==> Updating package repositories..."
 pkg update -y
 
 echo "==> Installing Termux packages..."
-pkg install -y "${PACKAGES[@]}"
+pkg install -y {{ .packages | join " " }}
 
 {{- if .python_packages }}
 
