@@ -1,0 +1,51 @@
+[color "diff"]
+	new = #8ec07c
+	old = #fb4934
+
+[commit]
+	gpgSign = true
+
+[core]
+	autocrlf = input
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+
+[http]
+	keepAlive = true
+	lowSpeedLimit = 0
+	lowSpeedTime = 99999
+	postBuffer = 104857600
+	version = HTTP/1.1
+
+[init]
+	defaultBranch = main
+
+[merge]
+	conflictstyle = zdiff3
+	tool = nvimdiff
+
+[mergetool]
+	prompt = false
+
+[pack]
+	depth = 50
+	window = 10
+	windowSize = 10m
+
+[pull]
+	rebase = true
+
+[safe]
+	directory = /opt/flutter
+
+[tag]
+	gpgSign = true
+
+[user]
+	email = ahmetardakavakci@gmail.com
+	name = Ahmet Arda Kavakci
+	signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDk59PDcSg4QstyRROvKn1zKvN5wrEWkXmBlDKEAprfN ahmetardakavakci@gmail.com
