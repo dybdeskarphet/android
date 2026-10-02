@@ -18,9 +18,9 @@ fi
 
 image="$(realpath "$target")"
 
-wp_dir="${HOME}/img/Wallpapers"
-mkdir -p "$wp_dir"
-blur_img="$wp_dir/.wallpaper_blur.png"
+cache_dir="/sdcard/Pictures/Wallpapers"
+mkdir -p "$cache_dir"
+blur_img="$cache_dir/wallpaper_blur.png"
 
 # Blur and dim image using ffmpeg filter matching backdrop
 ffmpeg -y -i "$image" \
