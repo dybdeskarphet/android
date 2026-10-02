@@ -24,6 +24,7 @@ abbr -a date 'LANG=tr_TR.UTF-8 date'
 abbr -a v nvim
 abbr -a y yazi
 abbr -a t 'nvim ~/doc/todo.txt'
+abbr -a lg 'lazygit'
 
 # Git abbreviations
 abbr -a gita 'git add .'
