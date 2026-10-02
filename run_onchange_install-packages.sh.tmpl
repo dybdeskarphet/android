@@ -17,3 +17,15 @@ pkg update -y
 
 echo "==> Installing Termux packages..."
 pkg install -y "${PACKAGES[@]}"
+
+{{- if .python_packages }}
+
+echo "==> Installing Python tools (LSPs & formatters)..."
+pip install --upgrade {{ .python_packages | join " " }}
+{{- end }}
+
+{{- if .npm_packages }}
+
+echo "==> Installing Node tools (LSPs)..."
+npm install -g {{ .npm_packages | join " " }}
+{{- end }}

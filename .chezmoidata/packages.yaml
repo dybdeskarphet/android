@@ -12,6 +12,25 @@ packages:
   - termux-api
   - yazi
   - zip
+  # Compiler & Runtimes
+  - clang
+  - python
+  - nodejs-lts
+  - jq
+  # Native LSPs & Formatters
+  - lua-language-server
+  - stylua
+  - taplo
+  - shfmt
+  - marksman
+
+python_packages:
+  - basedpyright
+  - ruff
+
+npm_packages:
+  - bash-language-server
+  - vscode-langservers-extracted
 
 yazi_plugins:
   - yazi-rs/plugins:smart-enter
@@ -21,5 +40,3 @@ yazi_plugins:
   - yazi-rs/plugins:recycle-bin
   - yazi-rs/plugins:vcs-files
   - DreamMaoMao/fg.yazi
-
-
