@@ -24,6 +24,9 @@ packages:
   - taplo
   - shfmt
   - marksman
+  # Document Processing
+  - typst
+  - pandoc
 
 python_packages:
   - basedpyright

@@ -28,7 +28,21 @@ add({
 	gh("nvim-treesitter/nvim-treesitter"),
 	gh("MeanderingProgrammer/render-markdown.nvim"),
 	gh("iamcco/markdown-preview.nvim"),
+	gh("arminveres/md-pdf.nvim"),
 	gh("Myzel394/easytables.nvim"),
+})
+-- }}}
+
+-- md-pdf.nvim {{{
+require("md-pdf").setup({
+	margins = "2cm",
+	toc = true,
+	pandoc_user_args = {
+		"--pdf-engine=typst",
+	},
+	preview_cmd = function()
+		return "termux-open"
+	end,
 })
 -- }}}
 
@@ -158,6 +172,9 @@ require("easytables").setup()
 -- Keybindings {{{
 nm("<leader>mp", "<cmd>MarkdownPreview<CR>", "Preview markdown file")
 nm("<leader>mt", "<cmd>RenderMarkdown toggle<CR>", "Toggle markdown rendering")
+nm("<leader>mc", function()
+	require("md-pdf").convert_md_to_pdf()
+end, "Convert markdown file to PDF")
 -- }}}
 
 -- vim: fdm=marker fdl=0
