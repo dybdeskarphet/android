@@ -29,7 +29,6 @@ proot-distro login "$DISTRO" -- /bin/sh -c "
 
 echo "==> Installing Python data science stack in '$DISTRO'..."
 proot-distro login "$DISTRO" -- /bin/sh -c "
-    pip install --break-system-packages --upgrade pip
     pip install --default-timeout=120 --retries 10 --break-system-packages --upgrade {{ .proot.python_packages | join " " }}
 "
 
