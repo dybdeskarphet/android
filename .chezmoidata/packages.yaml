@@ -29,6 +29,8 @@ packages:
   # Document Processing
   - typst
   - pandoc
+  # Media Tools
+  - ffmpeg
 
 python_packages:
   - basedpyright
