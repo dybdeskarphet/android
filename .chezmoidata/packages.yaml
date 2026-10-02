@@ -4,6 +4,7 @@ packages:
   - openssh
   - zsh
   - file
+  - lazygit
   - fish
   - neovim
   - matugen
