@@ -28,3 +28,17 @@ proot-distro login "$DISTRO" -- /bin/sh -c "
     pip install --break-system-packages --upgrade pip
     pip install --default-timeout=120 --retries 10 --break-system-packages --upgrade {{ .proot.python_packages | join " " }}
 "
+
+{{- if .proot.agy_url }}
+
+echo "==> Ensuring Antigravity CLI (agy) is installed in '$DISTRO'..."
+proot-distro login "$DISTRO" -- /bin/sh -c "
+    if [ ! -f /usr/local/bin/antigravity ]; then
+        echo '==> Downloading antigravity-cli for ARM64...'
+        curl -sSL '{{ .proot.agy_url }}' | tar -xz -C /usr/local/bin/
+        chmod +x /usr/local/bin/antigravity
+        ln -sfn /usr/local/bin/antigravity /usr/local/bin/agy
+    fi
+"
+{{- end }}
+

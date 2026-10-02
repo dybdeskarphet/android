@@ -1,6 +1,9 @@
 proot:
   distro: "debian"
+  agy_url: "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.2.14-4571742832820224/linux-arm/cli_linux_arm64.tar.gz"
   apt_packages:
+    - curl
+    - ca-certificates
     - python3
     - python3-pip
     - python3-venv
