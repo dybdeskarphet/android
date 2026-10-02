@@ -1,0 +1,8 @@
+[config.wallpaper]
+command = "wallpaper {{image}}"
+
+[templates.termux]
+input_path = '~/.config/matugen/templates/colors.properties'
+output_path = '~/.termux/colors.properties'
+post_hook = 'termux-reload-settings'
+
