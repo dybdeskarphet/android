@@ -12,6 +12,7 @@ packages:
   - termux-api
   - yazi
   - zip
+  - proot-distro
   # Compiler & Runtimes
   - clang
   - python
@@ -31,12 +32,3 @@ python_packages:
 npm_packages:
   - bash-language-server
   - vscode-langservers-extracted
-
-yazi_plugins:
-  - yazi-rs/plugins:smart-enter
-  - yazi-rs/plugins:git
-  - dybdeskarphet/yazi-plugins:toggle-ratio
-  - yazi-rs/plugins:toggle-pane
-  - yazi-rs/plugins:recycle-bin
-  - yazi-rs/plugins:vcs-files
-  - DreamMaoMao/fg.yazi

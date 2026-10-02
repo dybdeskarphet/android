@@ -1,0 +1,41 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+if ! command -v proot-distro >/dev/null 2>&1; then
+    echo "==> 'proot-distro' not found, skipping proot environment setup..."
+    exit 0
+fi
+
+DISTRO="{{ .proot.distro }}"
+
+echo "==> Checking proot-distro '$DISTRO' installation..."
+if ! proot-distro list | grep -q "$DISTRO (installed)"; then
+    echo "==> Installing minimal proot-distro '$DISTRO'..."
+    proot-distro install "$DISTRO"
+fi
+
+APT_PACKAGES=(
+{{- range .proot.apt_packages }}
+    {{ . | quote }}
+{{- end }}
+)
+
+PYTHON_PACKAGES=(
+{{- range .proot.python_packages }}
+    {{ . | quote }}
+{{- end }}
+)
+
+echo "==> Installing minimal APT packages in '$DISTRO'..."
+proot-distro login "$DISTRO" -- /bin/sh -c "
+    export DEBIAN_FRONTEND=noninteractive
+    apt update -y
+    apt install -y --no-install-recommends ${APT_PACKAGES[*]}
+    apt clean
+    rm -rf /var/lib/apt/lists/*
+"
+
+echo "==> Installing Python data science stack in '$DISTRO'..."
+proot-distro login "$DISTRO" -- /bin/sh -c "
+    pip install --break-system-packages --upgrade ${PYTHON_PACKAGES[*]}
+"

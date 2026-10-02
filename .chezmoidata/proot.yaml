@@ -1,0 +1,14 @@
+proot:
+  distro: "debian"
+  apt_packages:
+    - python3
+    - python3-pip
+    - python3-venv
+  python_packages:
+    - jupyterlab
+    - numpy
+    - pandas
+    - scipy
+    - matplotlib
+    - scikit-learn
+    - seaborn
