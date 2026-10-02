@@ -1,2 +1,3 @@
 #!/data/data/com.termux/files/usr/bin/sh
-exec proot-distro login {{ .proot.distro }} --termux-home -- agy "$@"
+CURRENT_DIR="$(pwd -P 2>/dev/null || pwd)"
+exec proot-distro login {{ .proot.distro }} --termux-home --work-dir "$CURRENT_DIR" -- agy "$@"
