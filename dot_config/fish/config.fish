@@ -32,6 +32,11 @@ abbr -a gitc 'git commit -S'
 abbr -a gitd 'git diff HEAD'
 abbr -a gitp 'git push'
 
+# Chezmoi
+abbr -a ced 'nvim ~/.local/share/chezmoi/'
+abbr -a cbu 'chezmoi apply -v'
+abbr -a cup 'chezmoi update -v'
+
 # Fastfetch on interactive session startup
 if status is-interactive
     and type -q fastfetch
