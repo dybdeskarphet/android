@@ -16,16 +16,16 @@ image_bound = [0, 0]
 
 [opener]
 edit = [
-	{ run = '${EDITOR:-nvim} "$@"', desc = "Edit", block = true },
+	{ run = 'nvim %s', desc = "Edit", block = true },
 ]
 open = [
-	{ run = 'termux-open "$@"', desc = "Open with Android", orphan = true },
+	{ run = 'termux-open %s', desc = "Open with Android", orphan = true },
 ]
 play = [
-	{ run = 'termux-open "$@"', desc = "Play with Android", orphan = true },
+	{ run = 'termux-open %s', desc = "Play with Android", orphan = true },
 ]
 install_apk = [
-	{ run = 'termux-open "$@"', desc = "Install APK", orphan = true },
+	{ run = 'termux-open %s', desc = "Install APK", orphan = true },
 ]
 
 [open]
