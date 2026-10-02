@@ -8,10 +8,14 @@ fi
 
 DISTRO="{{ .proot.distro }}"
 
+ROOTFS_DIR="${PREFIX:-/data/data/com.termux/files/usr}/var/lib/proot-distro/installed-rootfs/$DISTRO"
+
 echo "==> Checking proot-distro '$DISTRO' installation..."
-if ! proot-distro list | grep -q "$DISTRO (installed)"; then
+if [ ! -d "$ROOTFS_DIR" ] && ! proot-distro login "$DISTRO" -- true >/dev/null 2>&1; then
     echo "==> Installing minimal proot-distro '$DISTRO'..."
-    proot-distro install "$DISTRO"
+    proot-distro install "$DISTRO" || true
+else
+    echo "==> proot-distro '$DISTRO' is already installed."
 fi
 
 echo "==> Installing minimal APT packages in '$DISTRO'..."
