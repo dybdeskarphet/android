@@ -1,2 +1,2 @@
 #!/data/data/com.termux/files/usr/bin/sh
-exec proot-distro login {{ .proot.distro }} --termux-home -- jupyter lab "$@"
+exec proot-distro login {{ .proot.distro }} --termux-home -- jupyter lab --allow-root "$@"
