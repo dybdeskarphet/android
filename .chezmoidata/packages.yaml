@@ -3,6 +3,7 @@ packages:
   - git
   - openssh
   - zsh
+  - fish
   - neovim
   - matugen
   - ripgrep

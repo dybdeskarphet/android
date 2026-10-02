@@ -20,4 +20,9 @@ output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
 input_path = '~/.config/matugen/templates/fastfetch.jsonc'
 output_path = '~/.config/fastfetch/config.jsonc'
 
+[templates.fish_prompt]
+input_path = '~/.config/matugen/templates/fish_prompt.fish'
+output_path = '~/.config/fish/functions/fish_prompt.fish'
+
+
 
