@@ -48,4 +48,4 @@
 [user]
 	email = ahmetardakavakci@gmail.com
 	name = Ahmet Arda Kavakci
-	signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDk59PDcSg4QstyRROvKn1zKvN5wrEWkXmBlDKEAprfN ahmetardakavakci@gmail.com
+	signingKey = ~/.ssh/id_ed25519.pub
