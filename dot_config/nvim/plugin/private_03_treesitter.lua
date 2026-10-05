@@ -22,6 +22,7 @@ ts.install({
 	"json",
 	"bash",
 	"todotxt",
+	"latex",
 })
 -- }}}
 

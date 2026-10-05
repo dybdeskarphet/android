@@ -61,9 +61,16 @@ later(function()
 		},
 	})
 	-- }}}
+
+	-- texlab {{{2
+	vim.lsp.config("texlab", {
+		cmd = { "texlab" },
+		filetypes = { "tex", "markdown" },
+	})
+	-- }}}
 	-- }}}
 
-	-- Native LSP enable {{{1
+	-- Native LSP enable {{{
 	vim.lsp.enable({
 		"basedpyright",
 		"lua_ls",
@@ -71,6 +78,7 @@ later(function()
 		"marksman",
 		"jsonls",
 		"bashls",
+		"texlab",
 	})
 	-- }}}
 
