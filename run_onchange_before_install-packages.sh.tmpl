@@ -23,3 +23,7 @@ pip install --upgrade {{ .python_packages | join " " }}
 echo "==> Installing Node tools (LSPs)..."
 npm install -g {{ .npm_packages | join " " }}
 {{- end }}
+
+echo "==> Installing or Updating Mise packages..."
+mise install
+mise update

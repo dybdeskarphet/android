@@ -18,6 +18,10 @@ packages:
   - fastfetch
   - proot-distro
   - nala
+  - mise
+  # Backup & Cloud
+  - rclone
+  - restic
   # Compiler & Runtimes
   - clang
   - python

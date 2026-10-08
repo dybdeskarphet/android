@@ -50,4 +50,5 @@ abbr -a cup 'chezmoi update -v'
 if status is-interactive
     and type -q fastfetch
     fastfetch
+    mise activate fish | source
 end
