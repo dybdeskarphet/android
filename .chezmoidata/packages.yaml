@@ -17,6 +17,7 @@ packages:
   - zip
   - fastfetch
   - proot-distro
+  - nala
   # Compiler & Runtimes
   - clang
   - python

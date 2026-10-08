@@ -11,6 +11,15 @@ abbr -a .. 'cd ..'
 abbr -a ... 'cd ../..'
 abbr -a .... 'cd ../../..'
 
+# Package Management
+abbr -a srcpac 'nala search'
+abbr -a lspac 'nala list --installed'
+abbr -a lsupac 'nala list --upgradable'
+abbr -a uppac 'nala update && nala upgrade'
+abbr -a inspac 'sudo nala install'
+abbr -a rmpac 'sudo nala remove'
+abbr -a clpac 'nala autoremove && nala clean'
+
 # Quick exits
 abbr -a :q exit
 abbr -a q exit
