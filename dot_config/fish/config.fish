@@ -10,6 +10,7 @@ set -gx VISUAL nvim
 abbr -a .. 'cd ..'
 abbr -a ... 'cd ../..'
 abbr -a .... 'cd ../../..'
+abbr -a ls lsd
 
 # Package Management
 abbr -a srcpac 'nala search'
@@ -33,7 +34,7 @@ abbr -a date 'LANG=tr_TR.UTF-8 date'
 abbr -a v nvim
 abbr -a y yazi
 abbr -a t 'nvim ~/doc/todo.txt'
-abbr -a lg 'lazygit'
+abbr -a lg lazygit
 
 # Git abbreviations
 abbr -a gita 'git add .'

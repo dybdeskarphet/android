@@ -19,6 +19,7 @@ packages:
   - proot-distro
   - nala
   - mise
+  - lsd
   # Backup & Cloud
   - rclone
   - restic
