@@ -32,17 +32,57 @@ echo "==> Downloading official Shizuku APK (${TAG})..."
 TMP_APK=$(mktemp)
 curl -sSL "${APK_URL}" -o "${TMP_APK}"
 
-# Extract rish and rish_shizuku.dex from APK assets
+# Extract rish_shizuku.dex from APK assets
 unzip -pq "${TMP_APK}" assets/rish_shizuku.dex > "${SHARE_DIR}/rish_shizuku.dex"
-unzip -pq "${TMP_APK}" assets/rish > "${BIN_DIR}/rish"
 rm -f "${TMP_APK}"
 
 # Android 14+ requires non-writable dex
 chmod 400 "${SHARE_DIR}/rish_shizuku.dex"
-chmod 755 "${BIN_DIR}/rish"
 
-# Patch rish to point to the version-specific dex and Termux package ID
-sed -i "s|DEX=\"\$BASEDIR\"/rish_shizuku.dex|DEX=\"${SHARE_DIR}/rish_shizuku.dex\"|" "${BIN_DIR}/rish"
-sed -i 's|export RISH_APPLICATION_ID="PKG"|export RISH_APPLICATION_ID="com.termux"|' "${BIN_DIR}/rish"
+# Generate rish wrapper supporting flexible command invocations:
+#   - Interactive: rish
+#   - Flagged:     rish -c -- cmd args...
+#   - Simple -c:   rish -c "cmd args..."
+#   - Sudo-style:  rish cmd args...
+cat <<'EOF' > "${BIN_DIR}/rish"
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+REAL_BIN="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+BASEDIR="$(cd "$(dirname "$REAL_BIN")/.." && pwd)"
+DEX="${BASEDIR}/share/rish_shizuku.dex"
+
+if [ ! -f "$DEX" ]; then
+  echo "Error: Cannot find $DEX" >&2
+  exit 1
+fi
+
+if [ "$(getprop ro.build.version.sdk 2>/dev/null || echo 0)" -ge 34 ]; then
+  [ -w "$DEX" ] && chmod 400 "$DEX"
+fi
+
+export RISH_APPLICATION_ID="com.termux"
+
+# Interactive shell when no arguments provided
+if [ $# -eq 0 ]; then
+  exec /system/bin/app_process -Djava.class.path="$DEX" /system/bin --nice-name=rish rikka.shizuku.shell.ShizukuShellLoader
+fi
+
+# Strip optional -c and/or -- flags so all invocation styles work
+if [ "$1" = "-c" ]; then
+  shift
+fi
+if [ "${1:-}" = "--" ]; then
+  shift
+fi
+
+if [ $# -eq 0 ]; then
+  exec /system/bin/app_process -Djava.class.path="$DEX" /system/bin --nice-name=rish rikka.shizuku.shell.ShizukuShellLoader
+fi
+
+exec /system/bin/app_process -Djava.class.path="$DEX" /system/bin --nice-name=rish rikka.shizuku.shell.ShizukuShellLoader -c "$*"
+EOF
+
+chmod 755 "${BIN_DIR}/rish"
 
 echo "==> rish ${TAG} successfully installed to ${BIN_DIR}/rish"
