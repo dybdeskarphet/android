@@ -1,2 +1,6 @@
+[plugins]
+rish = "./_plugins/rish"
+
 [tools]
 "github:garethgeorge/backrest" = "latest"
+rish = "latest"

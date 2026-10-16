@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eu
+
+# Query official release tags from RikkaApps/Shizuku
+git ls-remote --tags --refs https://github.com/RikkaApps/Shizuku.git \
+  | awk -F'/' '{print $NF}' \
+  | grep '^v' \
+  | sed 's/^v//' \
+  | sort -V

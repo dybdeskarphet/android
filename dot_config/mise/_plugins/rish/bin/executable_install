@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -eu
+
+VERSION="${ASDF_INSTALL_VERSION}"
+TAG="v${VERSION}"
+INSTALL_PATH="${ASDF_INSTALL_PATH}"
+BIN_DIR="${INSTALL_PATH}/bin"
+SHARE_DIR="${INSTALL_PATH}/share"
+
+mkdir -p "${BIN_DIR}" "${SHARE_DIR}"
+
+# Resolve official release APK URL
+APK_URL=$(curl -sL "https://github.com/RikkaApps/Shizuku/releases/expanded_assets/${TAG}" \
+  | grep -o "/RikkaApps/Shizuku/releases/download/[^\"]*release.apk" \
+  | head -n 1 || true)
+
+if [ -z "${APK_URL}" ]; then
+  APK_URL=$(curl -sL "https://api.github.com/repos/RikkaApps/Shizuku/releases/tags/${TAG}" \
+    | grep "browser_download_url.*release.apk" \
+    | cut -d '"' -f 4 \
+    | head -n 1 || true)
+else
+  APK_URL="https://github.com${APK_URL}"
+fi
+
+if [ -z "${APK_URL}" ]; then
+  echo "Error: Could not find official release APK for Shizuku ${TAG}" >&2
+  exit 1
+fi
+
+echo "==> Downloading official Shizuku APK (${TAG})..."
+TMP_APK=$(mktemp)
+curl -sSL "${APK_URL}" -o "${TMP_APK}"
+
+# Extract rish and rish_shizuku.dex from APK assets
+unzip -pq "${TMP_APK}" assets/rish_shizuku.dex > "${SHARE_DIR}/rish_shizuku.dex"
+unzip -pq "${TMP_APK}" assets/rish > "${BIN_DIR}/rish"
+rm -f "${TMP_APK}"
+
+# Android 14+ requires non-writable dex
+chmod 400 "${SHARE_DIR}/rish_shizuku.dex"
+chmod 755 "${BIN_DIR}/rish"
+
+# Patch rish to point to the version-specific dex and Termux package ID
+sed -i "s|DEX=\"\$BASEDIR\"/rish_shizuku.dex|DEX=\"${SHARE_DIR}/rish_shizuku.dex\"|" "${BIN_DIR}/rish"
+sed -i 's|export RISH_APPLICATION_ID="PKG"|export RISH_APPLICATION_ID="com.termux"|' "${BIN_DIR}/rish"
+
+echo "==> rish ${TAG} successfully installed to ${BIN_DIR}/rish"

@@ -15,6 +15,7 @@ packages:
   - termux-api
   - yazi
   - zip
+  - unzip
   - fastfetch
   - proot-distro
   - nala

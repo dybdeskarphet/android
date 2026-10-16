@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+# Trigger on config or plugin updates:
+# {{ include "dot_config/mise/config.toml" | sha256sum }}
+# {{ include "dot_config/mise/_plugins/rish/bin/executable_install" | sha256sum }}
+
+if command -v mise >/dev/null 2>&1; then
+    echo "==> Installing and updating Mise packages..."
+    mise install -y
+    mise upgrade -y
+fi
