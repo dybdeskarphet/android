@@ -1,5 +1,5 @@
 [plugins]
-rish = "./_plugins/rish"
+rish = "~/.config/mise/_plugins/rish"
 
 [tools]
 "github:garethgeorge/backrest" = "latest"
