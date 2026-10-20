@@ -43,7 +43,8 @@ packages:
   # Python tools (native)
   - ruff
 
-python_packages: []
+python_packages:
+  - pylatexenc
 
 npm_packages:
   - basedpyright
