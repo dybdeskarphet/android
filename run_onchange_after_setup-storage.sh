@@ -55,7 +55,8 @@ if [ -n "$SHARED_DIR" ]; then
   fi
 fi
 
-# Ensure wallpaper script is accessible globally in $PREFIX/bin
+# Ensure custom scripts are accessible globally in $PREFIX/bin
 if [ -d "${PREFIX:-/data/data/com.termux/files/usr}/bin" ]; then
   ln -sfn "$HOME/.local/bin/wallpaper" "${PREFIX:-/data/data/com.termux/files/usr}/bin/wallpaper"
+  ln -sfn "$HOME/.local/bin/debloat" "${PREFIX:-/data/data/com.termux/files/usr}/bin/debloat"
 fi
