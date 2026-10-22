@@ -19,10 +19,16 @@ chezmoi init --apply dybdeskarphet/android
 Dependencies and tools are managed declaratively in `.chezmoidata/`:
 
 - `packages.yaml` - Native Termux packages (`pkg`), global pip tools, and npm packages
+- `debloat.yaml` - Declarative Android debloat lists per device model and common bloatware
 - `proot.yaml` - Debian PRoot container configuration, APT packages, and Python stack
 - `yazi.yaml` - Yazi file manager plugins
 
 Do not install software imperatively (avoid `pkg install` or `pip install`). Define all packages and tools in the corresponding YAML file and run `chezmoi apply` to keep the environment reproducible and tracked.
+
+## Utilities
+
+- `debloat` - Declarative Android debloater inspired by UAD-ng. Automatically matches the device model (`ro.product.model`), stops apps, clears data & cache, and uninstalls (`--user 0`) or disables (`disable-user`) packages. Supports `--dry-run`, `--restore`, `--status`, and manual `--model` override.
+- `wallpaper` - Sets home and lock screen wallpapers with automatic background blur using `ffmpeg` and Termux API.
 
 ## Setup Scripts
 
