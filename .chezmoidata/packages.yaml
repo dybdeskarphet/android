@@ -50,3 +50,4 @@ npm_packages:
   - basedpyright
   - bash-language-server
   - vscode-langservers-extracted
+  - prettier

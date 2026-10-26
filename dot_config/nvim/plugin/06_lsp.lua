@@ -91,7 +91,7 @@ later(function()
 			bash = { "shfmt" },
 			toml = { "taplo", lsp_format = "fallback" },
 			json = { "jq", lsp_format = "fallback" },
-			markdown = { lsp_format = "fallback" },
+			markdown = { "prettier", lsp_format = "fallback" },
 		},
 		formatters = {
 			shfmt = {
